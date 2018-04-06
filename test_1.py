@@ -54,8 +54,27 @@ def classic(plateau):
     plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
         1] = 2, 2, 2, 2, 2, 2, 2
 
+def move(joueur,plateau):
+
+    x = eval(input('Choisir ligne')) - 1
+    y = eval(input('Choisir colonne')) - 1
+    while (x < 0 or x > 7) or (y<0 or y>9) and plateau[x][y] != 1 and plateau[x][y] != 2 and plateau[x][y] != 0 and plateau[x][y][2] != joueur and plateau[x][y][0] != 2:
+        x = eval(input('Choisir ligne')) - 1
+        y = eval(input('Choisir colonne')) - 1
+
+    x2 = eval(input('Choisir ligne destination')) - 1
+    y2 = eval(input('Choisir colonne destination')) - 1
+    while plateau[x2][y2] != 0 and plateau[x2][y2] != joueur:
+        x2 = eval(input('Choisir ligne destination')) - 1
+        y2 = eval(input('Choisir colonne destination')) - 1
+
+    plateau[x2][y2] = plateau[x][y]
+    plateau[x][y] = 0
+    #SWAP A FAIRE
+
 
 def rotation(joueur, plateau):
+
     x = eval(input('Choisir ligne')) - 1
     y = eval(input('Choisir colonne')) - 1
     while plateau[x][y] != 1 and plateau[x][y] != 2 and plateau[x][y] != 0 and plateau[x][y][2] != joueur:
@@ -436,7 +455,15 @@ def shoot(joueur, plateau):
 
 
 def play(joueur, plateau):
-    rotation(joueur, plateau)
+    choix = eval(input('1 pour bouger ou 2 pour rotater'))
+    while choix !=1 and choix != 2:
+        choix = eval(input('1 pour bouger ou 2 pour rotater'))
+
+    if choix == 1:
+        move(joueur,plateau)
+    elif choix == 2:
+        rotation(joueur, plateau)
+
     shoot(joueur,plateau)
 
 
