@@ -36,23 +36,115 @@ def classic(plateau):
     # Pyramid blanc
     plateau[6][7] = [4, 'ne', 2]
     plateau[7][2] = [4, 'no', 2]
-    plateau[3][9] = [4, 'so', 2]
-    plateau[4][9] = [4, 'no', 2]
+    plateau[3][9] = [4, 'no', 2]
+    plateau[4][9] = [4, 'so', 2]
     plateau[3][2] = [4, 'so', 2]
     plateau[4][2] = [4, 'no', 2]
     plateau[2][3] = [4, 'no', 2]
     # Scarab rouge
-    plateau[3][4] = [2, 'no', 1]
-    plateau[3][5] = [2, 'ne', 1]
+    plateau[3][4] = [2, 'so', 1]
+    plateau[3][5] = [2, 'se', 1]
     # Scarab blanc
-    plateau[4][4] = [2, 'so', 2]
-    plateau[4][5] = [2, 'se', 2]
+    plateau[4][4] = [2, 'se', 2]
+    plateau[4][5] = [2, 'so', 2]
     # Camp rouge
     plateau[1][0], plateau[2][0], plateau[5][0], plateau[6][0], plateau[7][0], plateau[0][8], plateau[7][
         8] = 1, 1, 1, 1, 1, 1, 1
     # Camp blanc
     plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
         1] = 2, 2, 2, 2, 2, 2, 2
+
+
+
+def imhotep(plateau):
+    # Sphinx rouge
+    plateau[0][0] = [5, 's', 1]
+    # Sphinx blanc
+    plateau[7][9] = [5, 'n', 2]
+    # Anubis rouge
+    plateau[0][4] = [3, 's', 1]
+    plateau[0][6] = [3, 's', 1]
+    # Anubis blanc
+    plateau[7][3] = [3, 'n', 2]
+    plateau[7][5] = [3, 'n', 2]
+    # Pharaoh rouge
+    plateau[0][5] = [1, 's', 1]
+    # Pharaoh blanc
+    plateau[7][4] = [1, 'n', 2]
+    # Pyramid rouge
+    plateau[2][6] = [4, 'ne', 1]
+    plateau[4][5] = [4, 'no', 1]
+    plateau[3][0] = [4, 'ne', 1]
+    plateau[4][0] = [4, 'se', 1]
+    plateau[3][8] = [4, 'se', 1]
+    plateau[4][8] = [4, 'ne', 1]
+    plateau[5][6] = [4, 'se', 1]
+    # Pyramid blanc
+    plateau[5][3] = [4, 'so', 2]
+    plateau[3][4] = [4, 'se', 2]
+    plateau[2][3] = [4, 'no', 2]
+    plateau[3][1] = [4, 'so', 2]
+    plateau[4][1] = [4, 'no', 2]
+    plateau[3][9] = [4, 'no', 2]
+    plateau[4][9] = [4, 'so', 2]
+    # Scarab rouge
+    plateau[0][7] = [2, 'se', 1]
+    plateau[3][5] = [2, 'se', 1]
+    # Scarab blanc
+    plateau[4][4] = [2, 'no', 2]
+    plateau[7][2] = [2, 'no', 2]
+    # Camp rouge
+    plateau[1][0], plateau[2][0], plateau[5][0], plateau[6][0], plateau[7][0], plateau[0][8], plateau[7][
+        8] = 1, 1, 1, 1, 1, 1, 1
+    # Camp blanc
+    plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
+        1] = 2, 2, 2, 2, 2, 2, 2
+
+def dynasty(plateau):
+    # Sphinx rouge
+    plateau[0][0] = [5, 's', 1]
+    # Sphinx blanc
+    plateau[7][9] = [5, 'n', 2]
+    # Anubis rouge
+    plateau[0][5] = [3, 's', 1]
+    plateau[2][5] = [3, 's', 1]
+    # Anubis blanc
+    plateau[5][4] = [3, 'n', 2]
+    plateau[7][4] = [3, 'n', 2]
+    # Pharaoh rouge
+    plateau[1][5] = [1, 's', 1]
+    # Pharaoh blanc
+    plateau[6][4] = [1, 'n', 2]
+    # Pyramid rouge
+    plateau[0][4] = [4, 'so', 1]
+    plateau[0][6] = [4, 'se', 1]
+    plateau[2][4] = [4, 'so', 1]
+    plateau[2][0] = [4, 'ne', 1]
+    plateau[3][0] = [4, 'se', 1]
+    plateau[4][3] = [4, 'no', 1]
+    plateau[4][5] = [4, 'se', 1]
+    # Pyramid blanc
+    plateau[7][3] = [4, 'no', 2]
+    plateau[7][5] = [4, 'ne', 2]
+    plateau[5][5] = [4, 'ne', 2]
+    plateau[3][4] = [4, 'no', 2]
+    plateau[3][6] = [4, 'ne', 2]
+    plateau[4][9] = [4, 'no', 2]
+    plateau[5][9] = [4, 'so', 2]
+    # Scarab rouge
+    plateau[2][6] = [2, 'se', 1]
+    plateau[3][2] = [2, 'so', 1]
+    # Scarab blanc
+    plateau[4][4] = [2, 'no', 2]
+    plateau[5][3] = [2, 'se', 2]
+    # Camp rouge
+    plateau[1][0], plateau[2][0], plateau[5][0], plateau[6][0], plateau[7][0], plateau[0][8], plateau[7][
+        8] = 1, 1, 1, 1, 1, 1, 1
+    # Camp blanc
+    plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
+        1] = 2, 2, 2, 2, 2, 2, 2
+
+
 
 def move(joueur,plateau):
 
@@ -74,39 +166,81 @@ def move(joueur,plateau):
 
 
 def rotation(joueur, plateau):
-
+    #ROTATION
     x = eval(input('Choisir ligne')) - 1
     y = eval(input('Choisir colonne')) - 1
     while plateau[x][y] != 1 and plateau[x][y] != 2 and plateau[x][y] != 0 and plateau[x][y][2] != joueur:
         x = eval(input('Choisir ligne')) - 1
         y = eval(input('Choisir colonne')) - 1
 
-    rotate = eval(input('1 pour rotate horaire, 2 pr anti horaire'))
-    while rotate != 1 and rotate != 2:
+    if plateau[x][y][0] == 5:
+        print('ok sphinx')
+        if plateau[x][y][1] == 's':
+            plateau[x][y][1] = 'e'
+
+        elif plateau[x][y][1] == 'e':
+            plateau[x][y][1] = 's'
+
+        elif plateau[x][y][1] == 'n':
+            plateau[x][y][1] = 'o'
+
+        elif plateau[x][y][1] == 'o':
+            plateau[x][y][1] = 'n'
+    else:
         rotate = eval(input('1 pour rotate horaire, 2 pr anti horaire'))
-    if plateau[x][y][1] == 'no':
-        if rotate == 1:
-            plateau[x][y][1] = 'ne'
-        else:
-            plateau[x][y][1] = 'so'
-    elif plateau[x][y][1] == 'ne':
-        if rotate == 1:
-            plateau[x][y][1] = 'se'
-        else:
-            plateau[x][y][1] = 'no'
-    elif plateau[x][y][1] == 'se':
-        if rotate == 1:
-            plateau[x][y][1] = 'so'
-        else:
-            plateau[x][y][1] = 'ne'
-    elif plateau[x][y][1] == 'so':
-        if rotate == 1:
-            plateau[x][y][1] = 'no'
-        else:
-            plateau[x][y][1] = 'se'
+        while rotate != 1 and rotate != 2:
+            rotate = eval(input('1 pour rotate horaire, 2 pr anti horaire'))
 
 
-def shoot(joueur, plateau):
+        if plateau[x][y][1] == 's':
+            if rotate == 1:
+                plateau[x][y][1] = 'o'
+            else:
+                print('ISSSSSSOU')
+                plateau[x][y][1] = 'e'
+        elif plateau[x][y][1] == 'e':
+
+            if rotate == 1:
+                plateau[x][y][1] = 's'
+            else:
+                plateau[x][y][1] = 'n'
+        elif plateau[x][y][1] == 'n':
+
+            if rotate == 1:
+                plateau[x][y][1] = 'e'
+            else:
+                plateau[x][y][1] = 'o'
+        elif plateau[x][y][1] == 'o':
+
+            if rotate == 1:
+                plateau[x][y][1] = 'n'
+            else:
+                plateau[x][y][1] = 's'
+
+        elif plateau[x][y][1] == 'no':
+            if rotate == 1:
+                plateau[x][y][1] = 'ne'
+            else:
+                plateau[x][y][1] = 'so'
+        elif plateau[x][y][1] == 'ne':
+            if rotate == 1:
+                plateau[x][y][1] = 'se'
+            else:
+                plateau[x][y][1] = 'no'
+        elif plateau[x][y][1] == 'se':
+            if rotate == 1:
+                plateau[x][y][1] = 'so'
+            else:
+                plateau[x][y][1] = 'ne'
+        elif plateau[x][y][1] == 'so':
+            if rotate == 1:
+                plateau[x][y][1] = 'no'
+            else:
+                plateau[x][y][1] = 'se'
+
+        display(plateau)
+
+def shoot(joueur, plateau,game):
 
     dir = ''
     x_init = ''
@@ -135,8 +269,9 @@ def shoot(joueur, plateau):
                     break;
                 if plateau[k][y_init] != 1 and plateau[k][y_init] != 2 and plateau[k][y_init] != 0:
                     if plateau[k][y_init][0] == 1:
-                        print('rt ta perdu')
+                        print('Le joueur ' + str(plateau[x_init][k][2]) + ' a perdu')
                         inProgess = False
+                        game = False
                     elif plateau[k][y_init][0] == 2:
                         if plateau[k][y_init][1] == 'no':
                             dir = 'e'
@@ -217,8 +352,9 @@ def shoot(joueur, plateau):
 
                 if plateau[k][y_init] != 1 and plateau[k][y_init] != 2 and plateau[k][y_init] != 0:
                     if plateau[k][y_init][0] == 1:
-                        print('rt ta perdu')
+                        print('Le joueur ' + str(plateau[x_init][k][2]) + ' a perdu')
                         inProgess = False
+                        game = False
                     elif plateau[k][y_init][0] == 2:
                         if plateau[k][y_init][1] == 'no':
                             dir = 'o'
@@ -244,18 +380,18 @@ def shoot(joueur, plateau):
                             inProgess = False
                             x_init = k
 
-                        if plateau[k][y_init][1] == 'e':
+                        elif plateau[k][y_init][1] == 'e':
                             plateau[k][y_init] = 0
                             aled = False
                             inProgess = False
                             x_init = k
-                        if plateau[k][y_init][1] == 'o':
+                        elif plateau[k][y_init][1] == 'o':
                             plateau[k][y_init] = 0
                             aled = False
                             inProgess = False
                             x_init = k
 
-                        if plateau[k][y_init][1] == 's':
+                        elif plateau[k][y_init][1] == 's':
                             plateau[k][y_init] = 0
                             aled = False
                             inProgess = False
@@ -299,8 +435,9 @@ def shoot(joueur, plateau):
 
                 if plateau[x_init][k] != 1 and plateau[x_init][k] != 2 and plateau[x_init][k] != 0:
                     if plateau[x_init][k][0] == 1:
-                        print('rt ta perdu')
+                        print('Le joueur ' + str(plateau[x_init][k][2]) + ' a perdu')
                         inProgess = False
+                        game = False
                     elif plateau[x_init][k][0] == 2:
                         if plateau[x_init][k][1] == 'no':
                             dir = 's'
@@ -320,24 +457,30 @@ def shoot(joueur, plateau):
                             y_init = k
 
                     elif plateau[x_init][k][0] == 3:
+                        print('ok 3 ')
+                        print(plateau[x_init][k])
                         if plateau[x_init][k][1] == 'n':
+                            print('ok n')
                             plateau[x_init][k] = 0
                             aled = False
                             inProgess = False
                             y_init = k
-                        if plateau[x_init][k][1] == 'e':
+                        elif plateau[x_init][k][1] == 'e':
+                            print('ok e')
                             print('absorbed')
                             aled = False
                             inProgess = False
                             y_init = k
 
-                        if plateau[x_init][k][1] == 'o':
+                        elif plateau[x_init][k][1] == 'o':
+                            print('ok o')
                             plateau[x_init][k] = 0
                             aled = False
                             inProgess = False
                             y_init = k
 
-                        if plateau[x_init][k][1] == 's':
+                        elif plateau[x_init][k][1] == 's':
+                            print('ok s')
                             plateau[x_init][k] = 0
                             aled = False
                             inProgess = False
@@ -381,8 +524,9 @@ def shoot(joueur, plateau):
 
                 if plateau[x_init][k] != 1 and plateau[x_init][k] != 2 and plateau[x_init][k] != 0:
                     if plateau[x_init][k][0] == 1:
-                        print('rt ta perdu')
+                        print('Le joueur ' + str(plateau[x_init][k][2]) + ' a perdu')
                         inProgess=False
+                        game = False
                     elif plateau[x_init][k][0] == 2:
                         if plateau[x_init][k][1] == 'no':
                             dir = 'n'
@@ -407,19 +551,19 @@ def shoot(joueur, plateau):
                             aled = False
                             inProgess = False
                             y_init = k
-                        if plateau[x_init][k][1] == 'e':
+                        elif plateau[x_init][k][1] == 'e':
                            plateau[x_init][k] = 0
                            inProgess = False
                            aled = False
                            y_init = k
 
-                        if plateau[x_init][k][1] == 'o':
+                        elif plateau[x_init][k][1] == 'o':
                             print('absorbed')
                             aled = False
                             inProgess = False
                             y_init = k
 
-                        if plateau[x_init][k][1] == 's':
+                        elif plateau[x_init][k][1] == 's':
                             plateau[x_init][k] = 0
                             aled = False
                             inProgess = False
@@ -436,6 +580,7 @@ def shoot(joueur, plateau):
                             inProgess = False
                             y_init = k
                         elif plateau[x_init][k][1] == 'se':
+                            print('DETRUIS TOI')
                             plateau[x_init][k] = 0
                             aled = False
                             inProgess = False
@@ -454,7 +599,7 @@ def shoot(joueur, plateau):
     print(dir, x_init, y_init)
 
 
-def play(joueur, plateau):
+def play(joueur, plateau,game):
     choix = eval(input('1 pour bouger ou 2 pour rotater'))
     while choix !=1 and choix != 2:
         choix = eval(input('1 pour bouger ou 2 pour rotater'))
@@ -464,14 +609,20 @@ def play(joueur, plateau):
     elif choix == 2:
         rotation(joueur, plateau)
 
-    shoot(joueur,plateau)
+    shoot(joueur,plateau,game)
 
 
 def jeux():
-    joueur = 1
+    game = True
+    joueur = 0
+    test = 1
     plateau = newBoard()
     classic(plateau)
-    display(plateau)
-    play(joueur,plateau)
-    display(plateau)
+    while game == True:
+        print('Joueur : '+str(test))
+        play(test,plateau,game)
+        joueur = (joueur+1)%2
+        test = joueur +1
+        display(plateau)
+
 jeux()
