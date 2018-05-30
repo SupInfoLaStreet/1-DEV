@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+aled_x = 0
+aled_y = 0
 from tkinter import *
 def classic(plateau):
     # Sphinx rouge
@@ -47,18 +48,22 @@ def classic(plateau):
         1] = 2, 2, 2, 2, 2, 2, 2
 
 
-
-issou,aled_y=0,0
+##Var gloable
 board_graph = [[0] * 10 for i in range(8)]
 tab_cord = [[0] * 10 for i in range(8)]
 fenetre = Tk()
+var = StringVar()
+var.set('hello')
 fenetre.geometry("700x700")
 canvas = Canvas(fenetre, width=550, height=500, background='yellow')
 add_x, add_y = 0, 0
 button_move = Button(fenetre, text="Bouger le pion",state = DISABLED)
 button_rotate = Button(fenetre, text="Pivoter le pion",state = DISABLED)
+label = Label(fenetre, text="Sens :")
+text_sens = Label(fenetre, textvariable=var)
 
 
+#creation du tableau graphique (loop de rectangle)
 for i in range(8):
     for j in range(10):
         board_graph[i][j] = canvas.create_rectangle(add_x, add_y, add_x + 50, add_y + 50)
@@ -72,7 +77,226 @@ for k in range(8):
         count += 1
         tab_cord[k][l] = (canvas.coords(count))
 
+#fonction selection click
+def select(x,y,plateau,player):
+    print('ALED',x,y)
+    if plateau[y][x] != 0 or plateau[y][x] != 1 or plateau[y][x] != 2:
+        var.set(str(plateau[y][x][1]))
+    possible_next(x,y,plateau,player)
+#fonction pour afficher en surbrillance les deplacements possibles (non finie)
+def possible_next(x,y,plateau,player):
+    count = (x*10)+(y+1)
+    print('OMG ',x,y)
+    for i in range(80):
+        canvas.itemconfig(i, outline='black', width='0')
+    if plateau[y][x] != 5:
+        if x==0:
+            if plateau[y+1][x] == 0 :
+                print('COLOR')
+                count = ((y+1)*10) + (x+1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y+1][x] == 1 or plateau[y+1][x] == 2:
+                    if plateau[y + 1][x] == player:
+                        count = ((y + 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y + 1][x][2] == player :
+                    count = ((y + 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
 
+            if plateau[y][x+1] == 0 :
+                print('COLOR')
+                count = ((y) * 10) + (x + 2)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                    if plateau[y][x+1] == player:
+                        count = ((y) * 10) + (x + 2)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x+1][2] == player :
+                    count = ((y) * 10) + (x + 2)
+                    canvas.itemconfig(count, outline='red', width='2')
+        elif y == 0:
+
+            if plateau[y][x-1] == 0 :
+                print('COLOR')
+                count = (y * 10) + x
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                    if plateau[y][x-1] == player:
+                        count = (y * 10) + x
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x-1][2] == player :
+                    count = (y * 10) + x
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y-1][x] == 0 :
+                print('COLOR')
+                count = ((y-1) * 10) + (x+1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y-1][x] == 1 or plateau[y-1][x] == 2:
+                    if plateau[y-1][x] == player:
+                        count = ((y - 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y-1][x][2] == player :
+                    count = ((y - 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y][x+1] == 0 :
+                print('COLOR')
+                count = (y* 10) + (x + 2)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                    if plateau[y][x+1] == player:
+                        count = (y * 10) + (x + 2)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x+1][2] == player :
+                    count = (y * 10) + (x + 2)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+        elif y==7:
+            print('ok')
+            if plateau[y - 1][x] == 0:
+                print('COLOR 1')
+                count = ((y-1) * 10) + (x+1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                    if plateau[y - 1][x] == player:
+                        count = ((y - 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y - 1][x][2] == player:
+                    count = ((y - 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+
+            if plateau[y][x-1] == 0 :
+                print('COLOR 2')
+
+                count = ((y) * 10) + x
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                    if plateau[y][x-1] == player:
+                        count = ((y) * 10) + x
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x-1][2] == player :
+                    count = ((y) * 10) + x
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y][x+1] == 0 :
+                print('COLOR 3')
+
+                count = ((y) * 10) + (x+2)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                    if plateau[y][x+1] == player:
+                        count = ((y) * 10) + (x + 2)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x+1][2] == player :
+                    count = ((y) * 10) + (x + 2)
+                    canvas.itemconfig(count, outline='red', width='2')
+        elif x == 9:
+            print('OK X')
+            if plateau[y + 1][x] == 0:
+                print('COLOR')
+
+                count = ((y + 1) * 10) + (x + 1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
+                    if plateau[y + 1][x] == player:
+                        count = ((y + 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y + 1][x][2] == player:
+                    count = ((y + 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y - 1][x] == 0:
+                print('COLOR')
+                count = ((y - 1) * 10) + (x + 1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                    if plateau[y - 1][x] == player:
+                        count = ((y - 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y - 1][x][2] == player:
+                    count = ((y - 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y][x-1] == 0 :
+                print('COLOR')
+                count = (y * 10) + x
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                    if plateau[y][x-1] == player:
+                        count = (y * 10) + x
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x-1][2] == player :
+                    count = (y * 10) + x
+                    canvas.itemconfig(count, outline='red', width='2')
+
+        else:
+            if plateau[y + 1][x] == 0:
+                print('COLOR')
+
+                count = ((y + 1) * 10) + (x + 1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
+                    if plateau[y + 1][x] == player:
+                        count = ((y + 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y + 1][x][2] == player:
+                    count = ((y + 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y - 1][x] == 0:
+                print('COLOR')
+                count = ((y - 1) * 10) + (x + 1)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                    if plateau[y - 1][x] == player:
+                        count = ((y - 1) * 10) + (x + 1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y - 1][x][2] == player:
+                    count = ((y - 1) * 10) + (x + 1)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y][x-1] == 0 :
+                print('COLOR')
+                count = (y * 10) + x
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                    if plateau[y][x-1] == player:
+                        count = (y * 10) + x
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x-1][2] == player :
+                    count = (y * 10) + x
+                    canvas.itemconfig(count, outline='red', width='2')
+
+            if plateau[y][x + 1] == 0:
+                print('COLOR')
+                count = (y * 10) + (x + 2)
+                canvas.itemconfig(count, outline='red', width='2')
+            else:
+                if plateau[y][x + 1] == 1 or plateau[y][x + 1] == 2:
+                    if plateau[y][x + 1] == player:
+                        count = (y * 10) + (x + 2)
+                        canvas.itemconfig(count, outline='red', width='2')
+                elif plateau[y][x + 1][2] == player:
+                    count = (y * 10) + (x + 2)
+                    canvas.itemconfig(count, outline='red', width='2')
+
+#fonction bindé au click (appellée a chaque click)
 def motion(event):
     if event.x < 505 and event.y <401 and event.y > 0 and event.x > 0:#Verif du click sur le tableau
         count = 0
@@ -82,15 +306,22 @@ def motion(event):
                 if event.x >= tab_cord[k][l][0] and event.x <= tab_cord[k][l][2] and event.y >= tab_cord[k][l][1] and event.y <= tab_cord[k][l][3]:
                     #Reperage de la case du click
                     print('Vous avez cliqué sur la case : ' + str(count))
-                    aled_x = count//10
-                    aled_y = count%10
-                    print('index_x: ' +str(aled_x))
-                    print('index_y: ' +str(aled_y))
+                    aled_y = count//10
+                    aled_x = (count%10)-1
+                    if aled_x+1 == 0:
+                        aled_x = 9
+                        aled_y -=1
+                    print(aled_x,aled_y)
                     count = 0
                     button_rotate['state'] = 'normal'
+                    verif(aled_x,aled_y)
                     #RETURN
+                    select(aled_x,aled_y,plat,1)
+                    display(plat)
 
 
+
+#fonction qui transforme le tableau algo en un truck graphiquement potable
 def graphTranslation(plateau):
     count = 0
     for k in range(8):
@@ -102,7 +333,6 @@ def graphTranslation(plateau):
                 elif plateau[k][l] == 2 :
                     canvas.itemconfig(count, fill='green')
                 elif plateau[k][l][0] == 1:
-                    canvas.itemconfig(count,outline = 'red', width = '2')
                     w = Label(fenetre, text = '1')
                     print(tab_cord[k][l][0])
                     print(str(tab_cord[k][l][1]) + '\n ----')
@@ -128,6 +358,12 @@ def graphTranslation(plateau):
                     print(str(tab_cord[k][l][1]) + '\n ----')
                     w.place(x=tab_cord[k][l][0]+110,y=tab_cord[k][l][1]+10)
 
+def verif(var1,var2):
+    if var1 != 0:
+        print('OK C GUD1')
+    if var2 != 0:
+        print('OK C GUD2')
+
 def newBoard():
     plateau = [[0] * 10 for i in range(8)]  # creation d'un tableau vide de 0 de longueur n*n
     return plateau
@@ -137,13 +373,23 @@ classic(plat)
 graphTranslation(plat)
 print(tab_cord[2][3][1])
 canvas.pack()
+
 fenetre.bind("<Button-1>", motion)
-if issou != 0 :
-    print('ICI CEST K ' + str(issou)
-    )
+
+def display(gameBoard):
+    for ligne in gameBoard:
+        for x in ligne:
+            print(x, ' ', end='')
+        print('\n')
+
+if aled_x != 0 :
+    print('OK C GUD')
+
 
 button_move.pack()
 button_rotate.pack()
+label.pack()
+text_sens.pack()
 fenetre.mainloop()
 
 #   for i in range()
