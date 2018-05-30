@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 aled_x = 0
 aled_y = 0
+
+selected = False
 from tkinter import *
 def classic(plateau):
     # Sphinx rouge
@@ -49,6 +51,18 @@ def classic(plateau):
 
 
 ##Var gloable
+
+def selected_move(x,y,plat,player):
+
+
+def test_select():
+    print('OK BUTTON')
+    global selected
+    selected = True
+    print('TEST TEMP', test_temp)
+    canvas.itemconfig(test_temp, outline='green', width='2')
+
+
 board_graph = [[0] * 10 for i in range(8)]
 tab_cord = [[0] * 10 for i in range(8)]
 fenetre = Tk()
@@ -57,7 +71,7 @@ var.set('hello')
 fenetre.geometry("700x700")
 canvas = Canvas(fenetre, width=550, height=500, background='yellow')
 add_x, add_y = 0, 0
-button_move = Button(fenetre, text="Bouger le pion",state = DISABLED)
+button_move = Button(fenetre, text="Bouger le pion",state = DISABLED,command = test_select)
 button_rotate = Button(fenetre, text="Pivoter le pion",state = DISABLED)
 label = Label(fenetre, text="Sens :")
 text_sens = Label(fenetre, textvariable=var)
@@ -80,221 +94,331 @@ for k in range(8):
 #fonction selection click
 def select(x,y,plateau,player):
     print('ALED',x,y)
-    if plateau[y][x] != 0 or plateau[y][x] != 1 or plateau[y][x] != 2:
+    if plateau[y][x] != 0 and plateau[y][x] != 1 and plateau[y][x] != 2:
         var.set(str(plateau[y][x][1]))
     possible_next(x,y,plateau,player)
+
+
+
 #fonction pour afficher en surbrillance les deplacements possibles (non finie)
 def possible_next(x,y,plateau,player):
+    print(selected)
     count = (x*10)+(y+1)
     print('OMG ',x,y)
-    for i in range(80):
-        canvas.itemconfig(i, outline='black', width='0')
-    if plateau[y][x] != 5:
-        if x==0:
-            if plateau[y+1][x] == 0 :
-                print('COLOR')
-                count = ((y+1)*10) + (x+1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y+1][x] == 1 or plateau[y+1][x] == 2:
-                    if plateau[y + 1][x] == player:
-                        count = ((y + 1) * 10) + (x + 1)
-                        canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y + 1][x][2] == player :
-                    count = ((y + 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
 
-            if plateau[y][x+1] == 0 :
-                print('COLOR')
-                count = ((y) * 10) + (x + 2)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
-                    if plateau[y][x+1] == player:
+    if plateau[y][x] != 0 and plateau[y][x] != 1 and plateau[y][x] != 2:
+        if plateau[y][x][0] != 5:
+            if plateau[y][x][2] == player:
+                if x==0:
+                    for i in range(80):
+                        canvas.itemconfig(i, outline='black', width='0')
+                    global test_temp
+                    test_temp = (y * 10) + (x + 1)
+                    if plateau[y+1][x] == 0 :
+                        print('COLOR')
+                        count = ((y+1)*10) + (x+1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+
+                    else:
+                        if plateau[y+1][x] == 1 or plateau[y+1][x] == 2:
+                            if plateau[y + 1][x] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y+1][x][0] == 3 or plateau[y+1][x][0] == 4) and plateau[y+1][x][2] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+
+                    if plateau[y-1][x] == 0 :
+                        print('COLOR')
+                        count = ((y-1) * 10) + (x+1)
+                        canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y-1][x] == 1 or plateau[y-1][x] == 2:
+                            if plateau[y-1][x] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y-1][x][0] == 3 or plateau[y-1][x][0] == 4) and plateau[y-1][x][2] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+
+                    if plateau[y][x+1] == 0 :
+                        print('COLOR')
                         count = ((y) * 10) + (x + 2)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x+1][2] == player :
-                    count = ((y) * 10) + (x + 2)
-                    canvas.itemconfig(count, outline='red', width='2')
-        elif y == 0:
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                            if plateau[y][x+1] == player:
+                                count = ((y) * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x-1] == 0 :
-                print('COLOR')
-                count = (y * 10) + x
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
-                    if plateau[y][x-1] == player:
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x+1][0] == 3 or plateau[y][x+1][0] == 4) and plateau[y][x+1][2] == player:
+                                count = (y * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                elif y == 0:
+                    for i in range(80):
+                        canvas.itemconfig(i, outline='black', width='0')
+                    global test_temp
+                    test_temp = (y * 10) + (x + 1)
+                    if plateau[y][x-1] == 0 :
+                        print('COLOR')
                         count = (y * 10) + x
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x-1][2] == player :
-                    count = (y * 10) + x
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                            if plateau[y][x-1] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x-1][0] == 3 or plateau[y][x-1][0] == 4) and plateau[y][x-1][2] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y-1][x] == 0 :
-                print('COLOR')
-                count = ((y-1) * 10) + (x+1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y-1][x] == 1 or plateau[y-1][x] == 2:
-                    if plateau[y-1][x] == player:
-                        count = ((y - 1) * 10) + (x + 1)
+                    if plateau[y+1][x] == 0 :
+                        print('COLOR')
+                        count = ((y+1)*10) + (x+1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y-1][x][2] == player :
-                    count = ((y - 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y+1][x] == 1 or plateau[y+1][x] == 2:
+                            if plateau[y + 1][x] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x+1] == 0 :
-                print('COLOR')
-                count = (y* 10) + (x + 2)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
-                    if plateau[y][x+1] == player:
-                        count = (y * 10) + (x + 2)
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y+1][x][0] == 3 or plateau[y+1][x][0] == 4) and plateau[y+1][x][2] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+
+                    if plateau[y][x+1] == 0 :
+                        print('COLOR')
+                        count = (y* 10) + (x + 2)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x+1][2] == player :
-                    count = (y * 10) + (x + 2)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                            if plateau[y][x+1] == player:
+                                count = (y * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x+1][0] == 3 or plateau[y][x+1][0] == 4) and plateau[y][x+1][2] == player:
+                                count = (y * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-        elif y==7:
-            print('ok')
-            if plateau[y - 1][x] == 0:
-                print('COLOR 1')
-                count = ((y-1) * 10) + (x+1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
-                    if plateau[y - 1][x] == player:
-                        count = ((y - 1) * 10) + (x + 1)
+                elif y==7:
+                    for i in range(80):
+                        canvas.itemconfig(i, outline='black', width='0')
+                    global test_temp
+                    test_temp = (y * 10) + (x + 1)
+                    print('ok')
+                    if plateau[y - 1][x] == 0:
+                        print('COLOR 1')
+                        count = ((y-1) * 10) + (x+1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y - 1][x][2] == player:
-                    count = ((y - 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                            if plateau[y - 1][x] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y-1][x][0] == 3 or plateau[y-1][x][0] == 4) and plateau[y-1][x][2] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
 
-            if plateau[y][x-1] == 0 :
-                print('COLOR 2')
+                    if plateau[y][x-1] == 0 :
+                        print('COLOR 2')
 
-                count = ((y) * 10) + x
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
-                    if plateau[y][x-1] == player:
                         count = ((y) * 10) + x
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x-1][2] == player :
-                    count = ((y) * 10) + x
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                            if plateau[y][x-1] == player:
+                                count = ((y) * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x-1][0] == 3 or plateau[y][x-1][0] == 4) and plateau[y][x-1][2] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x+1] == 0 :
-                print('COLOR 3')
+                    if plateau[y][x+1] == 0 :
+                        print('COLOR 3')
 
-                count = ((y) * 10) + (x+2)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
-                    if plateau[y][x+1] == player:
-                        count = ((y) * 10) + (x + 2)
+                        count = ((y) * 10) + (x+2)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x+1][2] == player :
-                    count = ((y) * 10) + (x + 2)
-                    canvas.itemconfig(count, outline='red', width='2')
-        elif x == 9:
-            print('OK X')
-            if plateau[y + 1][x] == 0:
-                print('COLOR')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x+1] == 1 or plateau[y][x+1] == 2:
+                            if plateau[y][x+1] == player:
+                                count = ((y) * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x+1][0] == 3 or plateau[y][x+1][0] == 4) and plateau[y][x+1][2] == player:
+                                count = (y * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                elif x == 9:
+                    for i in range(80):
+                        canvas.itemconfig(i, outline='black', width='0')
+                    global test_temp
+                    test_temp = (y * 10) + (x + 1)
+                    print('OK X')
+                    if plateau[y + 1][x] == 0:
+                        print('COLOR')
 
-                count = ((y + 1) * 10) + (x + 1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
-                    if plateau[y + 1][x] == player:
                         count = ((y + 1) * 10) + (x + 1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y + 1][x][2] == player:
-                    count = ((y + 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
+                            if plateau[y + 1][x] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y+1][x][0] == 3 or plateau[y+1][x][0] == 4) and plateau[y+1][x][2] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y - 1][x] == 0:
-                print('COLOR')
-                count = ((y - 1) * 10) + (x + 1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
-                    if plateau[y - 1][x] == player:
+                    if plateau[y - 1][x] == 0:
+                        print('COLOR')
                         count = ((y - 1) * 10) + (x + 1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y - 1][x][2] == player:
-                    count = ((y - 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                            if plateau[y - 1][x] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y-1][x][0] == 3 or plateau[y-1][x][0] == 4) and plateau[y-1][x][2] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x-1] == 0 :
-                print('COLOR')
-                count = (y * 10) + x
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
-                    if plateau[y][x-1] == player:
+                    if plateau[y][x-1] == 0 :
+                        print('COLOR')
                         count = (y * 10) + x
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x-1][2] == player :
-                    count = (y * 10) + x
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                            if plateau[y][x-1] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x-1][0] == 3 or plateau[y][x-1][0] == 4) and plateau[y][x-1][2] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-        else:
-            if plateau[y + 1][x] == 0:
-                print('COLOR')
+                else:
+                    for i in range(80):
+                        canvas.itemconfig(i, outline='black', width='0')
+                    global test_temp
+                    test_temp = (y * 10) + (x + 1)
+                    if plateau[y + 1][x] == 0:
+                        print('COLOR')
 
-                count = ((y + 1) * 10) + (x + 1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
-                    if plateau[y + 1][x] == player:
                         count = ((y + 1) * 10) + (x + 1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y + 1][x][2] == player:
-                    count = ((y + 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y + 1][x] == 1 or plateau[y + 1][x] == 2:
+                            if plateau[y + 1][x] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y+1][x][0] == 3 or plateau[y+1][x][0] == 4) and plateau[y+1][x][2] == player:
+                                count = ((y + 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y - 1][x] == 0:
-                print('COLOR')
-                count = ((y - 1) * 10) + (x + 1)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
-                    if plateau[y - 1][x] == player:
+                    if plateau[y - 1][x] == 0:
+                        print('COLOR')
                         count = ((y - 1) * 10) + (x + 1)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y - 1][x][2] == player:
-                    count = ((y - 1) * 10) + (x + 1)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y - 1][x] == 1 or plateau[y - 1][x] == 2:
+                            if plateau[y - 1][x] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y-1][x][0] == 3 or plateau[y-1][x][0] == 4) and plateau[y-1][x][2] == player:
+                                count = ((y - 1) * 10) + (x + 1)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x-1] == 0 :
-                print('COLOR')
-                count = (y * 10) + x
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
-                    if plateau[y][x-1] == player:
+                    if plateau[y][x-1] == 0 :
+                        print('COLOR')
                         count = (y * 10) + x
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x-1][2] == player :
-                    count = (y * 10) + x
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x-1] == 1 or plateau[y][x-1] == 2:
+                            if plateau[y][x-1] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                        elif plateau[y][x][0] == 2:
+                            if (plateau[y][x-1][0] == 3 or plateau[y][x-1][0] == 4) and plateau[y][x-1][2] == player:
+                                count = (y * 10) + x
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
 
-            if plateau[y][x + 1] == 0:
-                print('COLOR')
-                count = (y * 10) + (x + 2)
-                canvas.itemconfig(count, outline='red', width='2')
-            else:
-                if plateau[y][x + 1] == 1 or plateau[y][x + 1] == 2:
-                    if plateau[y][x + 1] == player:
+                    if plateau[y][x + 1] == 0:
+                        print('COLOR')
                         count = (y * 10) + (x + 2)
                         canvas.itemconfig(count, outline='red', width='2')
-                elif plateau[y][x + 1][2] == player:
-                    count = (y * 10) + (x + 2)
-                    canvas.itemconfig(count, outline='red', width='2')
+                        button_move['state'] = 'normal'
+                    else:
+                        if plateau[y][x + 1] == 1 or plateau[y][x + 1] == 2:
+                            if plateau[y][x + 1] == player:
+                                count = (y * 10) + (x + 2)
+                                canvas.itemconfig(count, outline='red', width='2')
+                                button_move['state'] = 'normal'
+                            elif plateau[y][x][0] == 2:
+                                if (plateau[y][x + 1][0] == 3 or plateau[y][x + 1][0] == 4) and plateau[y][x + 1][2] == player:
+                                    count = (y * 10) + (x + 2)
+                                    canvas.itemconfig(count, outline='red', width='2')
+                                    button_move['state'] = 'normal'
+            else:
+                button_move['state'] = 'disabled'
+
+    else:
+        button_move['state'] = 'disabled'
 
 #fonction bindé au click (appellée a chaque click)
 def motion(event):
@@ -313,11 +437,12 @@ def motion(event):
                         aled_y -=1
                     print(aled_x,aled_y)
                     count = 0
-                    button_rotate['state'] = 'normal'
-                    verif(aled_x,aled_y)
                     #RETURN
-                    select(aled_x,aled_y,plat,1)
-                    display(plat)
+                    if selected == False:
+                        select(aled_x,aled_y,plat,1)
+                    else:
+                        selected_move(aled_x,aled_y,plat,1)
+
 
 
 
@@ -358,11 +483,7 @@ def graphTranslation(plateau):
                     print(str(tab_cord[k][l][1]) + '\n ----')
                     w.place(x=tab_cord[k][l][0]+110,y=tab_cord[k][l][1]+10)
 
-def verif(var1,var2):
-    if var1 != 0:
-        print('OK C GUD1')
-    if var2 != 0:
-        print('OK C GUD2')
+
 
 def newBoard():
     plateau = [[0] * 10 for i in range(8)]  # creation d'un tableau vide de 0 de longueur n*n
@@ -375,12 +496,6 @@ print(tab_cord[2][3][1])
 canvas.pack()
 
 fenetre.bind("<Button-1>", motion)
-
-def display(gameBoard):
-    for ligne in gameBoard:
-        for x in ligne:
-            print(x, ' ', end='')
-        print('\n')
 
 if aled_x != 0 :
     print('OK C GUD')
