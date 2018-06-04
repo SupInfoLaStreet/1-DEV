@@ -5,7 +5,15 @@ aled_y = 0
 global tab_possible_next
 tab_possible_next = []
 selected = False
+w=''
 from tkinter import *
+
+import os
+
+
+
+path = "kappa.jpg"
+
 
 
 def display(gameBoard):
@@ -13,6 +21,96 @@ def display(gameBoard):
         for x in ligne:
             print(x, ' ', end='')
         print('\n')
+
+
+def imhotep(plateau):
+    # Sphinx rouge
+    plateau[0][0] = [5, 's', 1]
+    # Sphinx blanc
+    plateau[7][9] = [5, 'n', 2]
+    # Anubis rouge
+    plateau[0][4] = [3, 's', 1]
+    plateau[0][6] = [3, 's', 1]
+    # Anubis blanc
+    plateau[7][3] = [3, 'n', 2]
+    plateau[7][5] = [3, 'n', 2]
+    # Pharaoh rouge
+    plateau[0][5] = [1, 's', 1]
+    # Pharaoh blanc
+    plateau[7][4] = [1, 'n', 2]
+    # Pyramid rouge
+    plateau[2][6] = [4, 'ne', 1]
+    plateau[4][5] = [4, 'no', 1]
+    plateau[3][0] = [4, 'ne', 1]
+    plateau[4][0] = [4, 'se', 1]
+    plateau[3][8] = [4, 'se', 1]
+    plateau[4][8] = [4, 'ne', 1]
+    plateau[5][6] = [4, 'se', 1]
+    # Pyramid blanc
+    plateau[5][3] = [4, 'so', 2]
+    plateau[3][4] = [4, 'se', 2]
+    plateau[2][3] = [4, 'no', 2]
+    plateau[3][1] = [4, 'so', 2]
+    plateau[4][1] = [4, 'no', 2]
+    plateau[3][9] = [4, 'no', 2]
+    plateau[4][9] = [4, 'so', 2]
+    # Scarab rouge
+    plateau[0][7] = [2, 'se', 1]
+    plateau[3][5] = [2, 'se', 1]
+    # Scarab blanc
+    plateau[4][4] = [2, 'no', 2]
+    plateau[7][2] = [2, 'no', 2]
+    # Camp rouge
+    plateau[1][0], plateau[2][0], plateau[5][0], plateau[6][0], plateau[7][0], plateau[0][8], plateau[7][
+        8] = 1, 1, 1, 1, 1, 1, 1
+    # Camp blanc
+    plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
+        1] = 2, 2, 2, 2, 2, 2, 2
+
+def dynasty(plateau):
+    # Sphinx rouge
+    plateau[0][0] = [5, 's', 1]
+    # Sphinx blanc
+    plateau[7][9] = [5, 'n', 2]
+    # Anubis rouge
+    plateau[0][5] = [3, 's', 1]
+    plateau[2][5] = [3, 's', 1]
+    # Anubis blanc
+    plateau[5][4] = [3, 'n', 2]
+    plateau[7][4] = [3, 'n', 2]
+    # Pharaoh rouge
+    plateau[1][5] = [1, 's', 1]
+    # Pharaoh blanc
+    plateau[6][4] = [1, 'n', 2]
+    # Pyramid rouge
+    plateau[0][4] = [4, 'so', 1]
+    plateau[0][6] = [4, 'se', 1]
+    plateau[2][4] = [4, 'so', 1]
+    plateau[2][0] = [4, 'ne', 1]
+    plateau[3][0] = [4, 'se', 1]
+    plateau[4][3] = [4, 'no', 1]
+    plateau[4][5] = [4, 'se', 1]
+    # Pyramid blanc
+    plateau[7][3] = [4, 'no', 2]
+    plateau[7][5] = [4, 'ne', 2]
+    plateau[5][5] = [4, 'ne', 2]
+    plateau[3][4] = [4, 'no', 2]
+    plateau[3][6] = [4, 'ne', 2]
+    plateau[4][9] = [4, 'no', 2]
+    plateau[5][9] = [4, 'so', 2]
+    # Scarab rouge
+    plateau[2][6] = [2, 'se', 1]
+    plateau[3][2] = [2, 'so', 1]
+    # Scarab blanc
+    plateau[4][4] = [2, 'no', 2]
+    plateau[5][3] = [2, 'se', 2]
+    # Camp rouge
+    plateau[1][0], plateau[2][0], plateau[5][0], plateau[6][0], plateau[7][0], plateau[0][8], plateau[7][
+        8] = 1, 1, 1, 1, 1, 1, 1
+    # Camp blanc
+    plateau[0][9], plateau[1][9], plateau[2][9], plateau[5][9], plateau[6][9], plateau[0][1], plateau[7][
+        1] = 2, 2, 2, 2, 2, 2, 2
+
 
 
 def classic(plateau):
@@ -61,6 +159,7 @@ def classic(plateau):
 
 def rotate():
     print('ok')
+    canvas.itemconfig(test_temp, outline='green', width='2')
     old_y = test_temp // 10
     old_x = (test_temp % 10) - 1
     if old_x + 1 == 0:
@@ -179,6 +278,7 @@ label = Label(fenetre, text="Sens :")
 text_sens = Label(fenetre, textvariable=var)
 
 
+
 def selected_move(x, y, plateau, player):
     old_y = test_temp // 10
     old_x = (test_temp % 10) - 1
@@ -191,12 +291,7 @@ def selected_move(x, y, plateau, player):
         if new_case == tab_possible_next[i]:
             new_y = tab_possible_next[i] // 10
             new_x = (tab_possible_next[i] % 10) - 1
-            if (plateau[new_y][new_x][0] == 3 or plateau[new_y][new_x][0] == 4) and plateau[old_y][old_x][0] == 2 and plateau[new_y][new_x][2] == player:
-                temp = plateau[new_y][new_x]
-                plateau[new_y][new_x] = plateau[old_y][old_x]
-                plateau[old_y][old_x] = temp
-                temp = ''
-            else:
+            if plateau[new_y][new_x] == 0:
                 print('OK C LA BONNE CASE')
                 print('OK NEW X ET Y  :', new_x, new_y, old_x, old_y)
                 print('value 1', plateau[new_y][new_x])
@@ -205,8 +300,20 @@ def selected_move(x, y, plateau, player):
                 plateau[old_y][old_x] = 0
                 print('value 1', plateau[new_y][new_x])
                 print('value 2', plateau[old_y][old_x])
-                graphTranslation(plateau)
+                graphTranslation(plateau,1)
                 display(plateau)  # creation du tableau graphique (loop de rectangle)
+            elif (plateau[new_y][new_x][0] == 3 or plateau[new_y][new_x][0] == 4) and plateau[old_y][old_x][0] == 2 and plateau[new_y][new_x][2] == player:
+                temp = plateau[new_y][new_x]
+                plateau[new_y][new_x] = plateau[old_y][old_x]
+                plateau[old_y][old_x] = temp
+                temp = ''
+
+            for i in range(80):
+                canvas.itemconfig(i, outline='black', width='1')
+
+            global selected
+            selected = False
+            tab_possible_next.clear()
 for i in range(8):
     for j in range(10):
         board_graph[i][j] = canvas.create_rectangle(add_x, add_y, add_x + 50, add_y + 50)
@@ -241,7 +348,7 @@ def possible_next(x, y, plateau, player):
             if plateau[y][x][2] == player:
                 if x == 0:
                     for i in range(80):
-                        canvas.itemconfig(i, outline='black', width='0')
+                        canvas.itemconfig(i, outline='black', width='1')
                     global test_temp
                     test_temp = (y * 10) + (x + 1)
                     if plateau[y + 1][x] == 0:
@@ -321,7 +428,7 @@ def possible_next(x, y, plateau, player):
                                 tab_possible_next.append(count)
                 elif y == 0:
                     for i in range(80):
-                        canvas.itemconfig(i, outline='black', width='0')
+                        canvas.itemconfig(i, outline='black', width='1')
                     global test_temp
                     test_temp = (y * 10) + (x + 1)
                     if plateau[y][x - 1] == 0:
@@ -1038,6 +1145,8 @@ def motion(event):
                     print(aled_x, aled_y)
                     count = 0
                     # RETURN
+                    print(canvas.find_all())
+
                     if selected == False:
                         select(aled_x, aled_y, plat, 1)
                     else:
@@ -1046,8 +1155,11 @@ def motion(event):
                     shoot(1,plat)
 
 # fonction qui transforme le tableau algo en un truck graphiquement potable
-def graphTranslation(plateau):
+def graphTranslation(plateau,nbtour):
+    if nbtour != 0 :
+        print('ok')
     count = 0
+
     for k in range(8):
         for l in range(10):
             count += 1
@@ -1082,6 +1194,8 @@ def graphTranslation(plateau):
                     print(str(tab_cord[k][l][1]) + '\n ----')
                     w.place(x=tab_cord[k][l][0] + 110, y=tab_cord[k][l][1] + 10)
 
+    print('ALO LE CERVOOOOOOOO',canvas.find_all())
+
 
 def newBoard():
     plateau = [[0] * 10 for i in range(8)]  # creation d'un tableau vide de 0 de longueur n*n
@@ -1089,7 +1203,7 @@ def newBoard():
 
 plat = newBoard()
 classic(plat)
-graphTranslation(plat)
+graphTranslation(plat,0)
 print(tab_cord[2][3][1])
 canvas.pack()
 
